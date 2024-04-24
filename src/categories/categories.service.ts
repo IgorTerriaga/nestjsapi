@@ -17,7 +17,9 @@ export class CategoriesService {
   }
 
   findAll() {
-    return `This action returns all categories`;
+    return this.prisma.categories.findMany({orderBy:{
+      createdAt: 'desc'
+    }});
   }
 
   findOne(id: number) {
