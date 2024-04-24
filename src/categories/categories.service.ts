@@ -17,20 +17,33 @@ export class CategoriesService {
   }
 
   findAll() {
-    return this.prisma.categories.findMany({orderBy:{
-      createdAt: 'desc'
-    }});
+    return this.prisma.categories.findMany({
+      orderBy: {
+        createdAt: 'desc'
+      }
+    });
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} category`;
+    return this.prisma.categories.findUniqueOrThrow({
+      where: {
+        id
+      }
+    });
   }
 
   update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${id} category`;
+    return this.prisma.categories.update({
+      where: { id: id },
+      data: updateCategoryDto
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} category`;
+    try {
+      return this.prisma.categories.delete({ where: { id } });
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
