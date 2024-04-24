@@ -1,26 +1,26 @@
 
-# GET http://localhost:3000/categories
-# ###
-# GET http://localhost:3000/categories/1
-# ###
-# POST http://localhost:3000/categories
-# Content-Type: application/json
+GET http://localhost:3000/categories
+###
+GET http://localhost:3000/categories/1
+###
+POST http://localhost:3000/categories
+Content-Type: application/json
 
-# {
-#     "name": "Category 3"
-# }
-# ###
+{
+    "name": "Category 3"
+}
+###
 
 
-# PATCH http://localhost:3000/categories/3
-# Content-Type: application/json
+PATCH http://localhost:3000/categories/3
+Content-Type: application/json
 
-# {
-#     "name": "Category 3 updated"
-# }
-# ###
+{
+    "name": "Category 3 updated"
+}
+###
 
-# DELETE http://localhost:3000/categories/2
+DELETE http://localhost:3000/categories/2
 
 
 
@@ -29,7 +29,7 @@
 ###
 GET http://localhost:3000/products
 ###
-GET http://localhost:3000/products/5
+GET http://localhost:3000/products/12
 ###
 POST http://localhost:3000/products
 Content-Type: application/json

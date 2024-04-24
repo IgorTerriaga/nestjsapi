@@ -41,12 +41,7 @@ export class CategoriesService {
   }
 
   remove(id: number) {
-    try {
       return this.prisma.categories.delete({ where: { id } });
-    } catch (error) {
-      if (error.code === 'P2025') {
-        throw new NotFoundError(`Product with ID ${id} not found`);
-      }
-    }
+   
   }
 }

@@ -27,40 +27,22 @@ export class ProductsService {
   }
 
   async findOne(id: number) {
-    try {
-      return this.prisma.product.findUniqueOrThrow({
-        where: { id },
-      });
-    } catch (error) {
-      if (error.code === 'P2025') {
-        throw new NotFoundException(`Product with ID ${id} not found`);
-      }
-    }
+    return this.prisma.product.findUniqueOrThrow({
+      where: { id },
+    });
   }
 
   async update(id: number, updateProductDto: UpdateProductDto) {
-    try {
-      return await this.prisma.product.update({
-        where: { id },
-        data: updateProductDto,
-      });
-    } catch (error) {
-      if (error.code === 'P3001') {
-        throw new NotFoundException(`Product with ID ${id} not found`);
-      }
-      throw error;
-    }
+
+    return this.prisma.product.update({
+      where: { id },
+      data: updateProductDto,
+    });
+
   }
   async remove(id: number) {
-    try {
-      return await this.prisma.product.delete({
-        where: { id },
-      });
-    } catch (error) {
-      if (error.code === 'P2025') {
-        throw new NotFoundException(`Product with ID ${id} not found`);
-      }
-      throw error;
-    }
+    return await this.prisma.product.delete({
+      where: { id },
+    });
   }
 }
