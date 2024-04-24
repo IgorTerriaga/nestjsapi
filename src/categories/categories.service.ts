@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { NotFoundError } from 'rxjs';
 
 @Injectable()
 export class CategoriesService {
@@ -43,7 +44,9 @@ export class CategoriesService {
     try {
       return this.prisma.categories.delete({ where: { id } });
     } catch (error) {
-      console.log(error)
+      if (error.code === 'P2025') {
+        throw new NotFoundError(`Product with ID ${id} not found`);
+      }
     }
   }
 }

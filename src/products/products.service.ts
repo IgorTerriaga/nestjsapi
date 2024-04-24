@@ -39,12 +39,18 @@ export class ProductsService {
   }
 
   async update(id: number, updateProductDto: UpdateProductDto) {
-      return  await this.prisma.product.update({
-        where: { id: id },
-        data: updateProductDto
+    try {
+      return await this.prisma.product.update({
+        where: { id },
+        data: updateProductDto,
       });
+    } catch (error) {
+      if (error.code === 'P3001') {
+        throw new NotFoundException(`Product with ID ${id} not found`);
+      }
+      throw error;
+    }
   }
-
   async remove(id: number) {
     try {
       return await this.prisma.product.delete({

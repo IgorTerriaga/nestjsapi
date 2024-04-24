@@ -35,13 +35,13 @@ POST http://localhost:3000/products
 Content-Type: application/json
 
 {
-    "name": "Product 1",
-    "price": 10000,
-    "categoryId": 3
+    # "name": "Product 1",
+    # "price": 10000,
+    # "categoryId": 3
 }
 ###
 
-PATCH http://localhost:3000/products/5
+PATCH http://localhost:3000/products/11
 Content-Type: application/json
 
 {
