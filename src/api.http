@@ -48,4 +48,4 @@ Content-Type: application/json
     "name": "Product 1 updated"
 }
 ###
-DELETE http://localhost:3000/products/2
+DELETE http://localhost:3000/products/12

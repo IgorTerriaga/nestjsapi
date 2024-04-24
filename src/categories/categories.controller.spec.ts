@@ -1,9 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CategoriesController } from './categories.controller';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CategoriesService } from './categories.service';
 
 describe('CategoriesController', () => {
-  let controller: CategoriesController;
+  let categoriesController: CategoriesController;
+  let categoriesService: CategoriesService
+  let prisma: PrismaService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -11,10 +14,18 @@ describe('CategoriesController', () => {
       providers: [CategoriesService],
     }).compile();
 
-    controller = module.get<CategoriesController>(CategoriesController);
+    // categoriesController = module.get<CategoriesController>(CategoriesController);
+    categoriesService = new CategoriesService(prisma);
+    categoriesController = new CategoriesController(categoriesService);
+
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
+  describe('findAll',  async () =>{
+    it('should return an array of cats', async () =>{
+      const products =  await categoriesService.findAll()
+      expect(products).toHaveLength(5);
+
+    })
+  })
+
 });
