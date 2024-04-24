@@ -19,7 +19,6 @@ export class CategoriesController {
 
   @Get(':id')
   findOne(@Param('id', new ParseIntPipe()) id: number) {
-    console.log("Entrei")
     return this.categoriesService.findOne(id);
   }
 
