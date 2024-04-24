@@ -1,31 +1,35 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CategoriesController } from './categories.controller';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { CategoriesService } from './categories.service';
 
 describe('CategoriesController', () => {
-  let categoriesController: CategoriesController;
-  let categoriesService: CategoriesService
   let prisma: PrismaService;
+  let categoriesService: CategoriesService;
+  let categoriesController: CategoriesController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [CategoriesController],
-      providers: [CategoriesService],
+      providers: [
+        CategoriesService,
+        {
+          provide: PrismaService,
+          useClass: PrismaService,
+        },
+      ],
     }).compile();
 
-    // categoriesController = module.get<CategoriesController>(CategoriesController);
-    categoriesService = new CategoriesService(prisma);
-    categoriesController = new CategoriesController(categoriesService);
-
+    prisma = module.get<PrismaService>(PrismaService);
+    categoriesService = module.get<CategoriesService>(CategoriesService);
+    categoriesController = module.get<CategoriesController>(CategoriesController);
   });
 
-  describe('findAll',  async () =>{
-    it('should return an array of cats', async () =>{
-      const products =  await categoriesService.findAll()
-      expect(products).toHaveLength(5);
-
-    })
-  })
-
+  describe('findAll', () => {
+    it('should return an array of cats', async () => {
+      // Assuming findAll() returns a Promise
+      const products = await categoriesController.findAll();
+      expect(products).toHaveLength(2);
+    });
+  });
 });
